@@ -37,6 +37,7 @@ if 'CODESPACE_NAME' in os.environ:
 # Application definition
 
 INSTALLED_APPS = [
+    "protein_map.apps.ProteinMapConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
