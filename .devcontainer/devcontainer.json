@@ -12,7 +12,7 @@
   "customizations": {
     "codespaces": {
       "openFiles": [
-        "bio_domain/templates/index.html"
+        "true_glassy/templates/index.html"
       ]
     },
     "vscode": {

@@ -1,5 +1,5 @@
 """
-WSGI config for bio_domain project.
+WSGI config for true_glassy project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bio_domain.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "true_glassy.settings")
 
 application = get_wsgi_application()

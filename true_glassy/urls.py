@@ -1,5 +1,5 @@
 """
-URL configuration for bio_domain project.
+URL configuration for true_glassy project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -20,7 +20,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from bio_domain.core import views as core_views
+from true_glassy.core import views as core_views
 
 urlpatterns = [
     path("", include("protein_map.urls")),
