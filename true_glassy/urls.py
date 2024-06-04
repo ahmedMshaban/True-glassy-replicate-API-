@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 from true_glassy.core import views as core_views
 
 urlpatterns = [
-    path("", include("protein_map.urls")),
+    path("", core_views.index, name="index"),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
 ]

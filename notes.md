@@ -16,8 +16,8 @@
 - **Task**: Set up the Django project structure.
   - Create a new Django app. (DONE)
   - Set up initial configurations (settings.py, URLs, etc.). (DONE)
-  - Create models for the dataset (based on your chosen domain).
-  - Create and apply initial migrations.
+  - Create models for the dataset (based on your chosen domain). (DONE)
+  - Create and apply initial migrations. (DONE)
 - **PR**: Basic Django app setup.
 
 ### Day 3: Database Design and Seed Script
@@ -119,5 +119,4 @@
 
 ## References
 
-- https://github.com/rdswyc
-
+- <https://github.com/rdswyc>
