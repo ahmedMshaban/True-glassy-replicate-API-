@@ -29,3 +29,15 @@ python manage.py runserver
 ``` sql
 sqlite3 db.sqlite3
 ```
+
+## To import the data
+
+```python
+python manage.py populate_products data/TREATMENT.csv
+```
+
+## Superuser
+
+username: ahmedshaban
+email: <ahmed.ms.elias@gmail.com>
+password: 248655

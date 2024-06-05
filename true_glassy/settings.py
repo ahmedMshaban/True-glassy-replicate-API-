@@ -87,7 +87,7 @@ WSGI_APPLICATION = "true_glassy.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": str(BASE_DIR / "db.sqlite3"),
     }
 }
 
@@ -130,7 +130,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "true_glassy" / "static",
 ]
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "true_glassy" / "staticfiles"
 
 MEDIA_URL = "media/"
