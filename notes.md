@@ -23,9 +23,9 @@
 ### Day 3: Database Design and Seed Script
 
 - **Task**: Design the database and create a data loading script.
-  - Finalize the database schema.
-  - Create a script to load data from CSV files into the database.
-  - Add the `requirements.txt` file with necessary dependencies.
+  - Finalize the database schema. (DONE)
+  - Create a script to load data from CSV files into the database. (DONE)
+  - Add the `requirements.txt` file with necessary dependencies. (DONE)
 - **PR**: Database design and seed script.
 
 ### Day 4: RESTful Endpoints - Part 1

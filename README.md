@@ -33,7 +33,7 @@ sqlite3 db.sqlite3
 ## To import the data
 
 ```python
-python manage.py populate_products data/TREATMENT.csv
+python manage.py populate_products data/SUNSCREEN.csv data/TREATMENT.csv
 ```
 
 ## Superuser
