@@ -122,12 +122,6 @@
 
 - <https://github.com/rdswyc>
 
-- Get all products from a specific brand and line that are cruelty-free and vegan:
-
-Endpoint: GET /products/brand/{brand_id}/line/{line_id}/cruelty_free_vegan/
-Description: This endpoint retrieves all products that belong to a specific brand and line, and are also cruelty-free and vegan.
-Complexity: Involves filtering by multiple foreign keys and boolean fields.
-
 - Retrieve all products containing a specific ingredient and sort them by the concentration of that ingredient:
 
 Endpoint: GET /products/ingredient/{ingredient_id}/sorted_by_concentration/
