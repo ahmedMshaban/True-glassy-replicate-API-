@@ -128,11 +128,6 @@ Endpoint: GET /products/ingredient/{ingredient_id}/sorted_by_concentration/
 Description: This endpoint returns all products that contain a specific ingredient, sorted by the concentration of that ingredient in descending order.
 Complexity: Involves joining the Product, ProductIngredient, and Ingredient tables, and sorting based on a field in the intermediary table.
 
--Get the most common ingredients used in products from a specific country:
-
-Endpoint: GET /products/country/{country}/common_ingredients/
-Description: This endpoint lists the most common ingredients used in products from a specified country.
-Complexity: Requires aggregating and counting ingredient occurrences, and filtering by a field in the Product table.
 
 - Get detailed information of a product including its ingredients and their concentrations:
 

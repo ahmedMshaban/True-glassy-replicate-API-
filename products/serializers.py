@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import Product, Brand, Line
 
 
@@ -12,6 +13,11 @@ class LineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Line
         fields = ["id", "name"]
+
+
+class IngredientCountSerializer(serializers.Serializer):
+    ingredient__name = serializers.CharField(max_length=255)
+    count = serializers.IntegerField()
 
 
 class ProductSerializer(serializers.ModelSerializer):
