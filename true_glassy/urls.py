@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 from true_glassy.core import views as core_views
 
 urlpatterns = [
-    path("", core_views.index, name="index"),
+    path("", include("products.urls")),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
 ]

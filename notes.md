@@ -2,7 +2,7 @@
 
 ## Week 1
 
-### Day 1: Project Setup and Initial Planning
+### Day 1: Project Setup and Initial Planning (DONE)
 
 - **Task**: Set up the project repository and initial environment.
   - Create a new repository on GitHub. (DONE)
@@ -11,7 +11,7 @@
   - Create an initial README file with project description and goals.
 - **PR**: Initial project setup.
 
-### Day 2: Basic Django Setup
+### Day 2: Basic Django Setup (DONE)
 
 - **Task**: Set up the Django project structure.
   - Create a new Django app. (DONE)
@@ -20,7 +20,7 @@
   - Create and apply initial migrations. (DONE)
 - **PR**: Basic Django app setup.
 
-### Day 3: Database Design and Seed Script
+### Day 3: Database Design and Seed Script (DONE)
 
 - **Task**: Design the database and create a data loading script.
   - Finalize the database schema. (DONE)
@@ -54,6 +54,7 @@
 ### Day 7: Code Review and Refactoring
 
 - **Task**: Review and refactor code.
+  - I need to reduce the database entries to be below 10,000 entries
   - Perform a thorough code review to ensure code quality.
   - Refactor code for better readability and maintainability.
   - Ensure adherence to PEP8 standards.
@@ -120,3 +121,47 @@
 ## References
 
 - <https://github.com/rdswyc>
+
+- Get all products from a specific brand and line that are cruelty-free and vegan:
+
+Endpoint: GET /products/brand/{brand_id}/line/{line_id}/cruelty_free_vegan/
+Description: This endpoint retrieves all products that belong to a specific brand and line, and are also cruelty-free and vegan.
+Complexity: Involves filtering by multiple foreign keys and boolean fields.
+
+- Retrieve all products containing a specific ingredient and sort them by the concentration of that ingredient:
+
+Endpoint: GET /products/ingredient/{ingredient_id}/sorted_by_concentration/
+Description: This endpoint returns all products that contain a specific ingredient, sorted by the concentration of that ingredient in descending order.
+Complexity: Involves joining the Product, ProductIngredient, and Ingredient tables, and sorting based on a field in the intermediary table.
+
+-Get the most common ingredients used in products from a specific country:
+
+Endpoint: GET /products/country/{country}/common_ingredients/
+Description: This endpoint lists the most common ingredients used in products from a specified country.
+Complexity: Requires aggregating and counting ingredient occurrences, and filtering by a field in the Product table.
+
+- Get detailed information of a product including its ingredients and their concentrations:
+
+Endpoint: GET /product/{product_id}/details/
+Description: This endpoint retrieves detailed information about a product, including its ingredients and their respective concentrations.
+Complexity: Requires nested serialization to include related data from ProductIngredient and Ingredient tables.
+
+- Add a new product along with its ingredients and their concentrations:
+
+Endpoint: POST /products/add/
+Description: This endpoint allows adding a new product along with its ingredients and their concentrations. The request body should include product details and a list of ingredients with their concentrations.
+Complexity: Involves handling nested data in the request and performing multiple inserts into different tables.
+Serialization: Uses serialization to validate and save the nested data.
+
+- Delete all products that do not belong to any brand or line and are not vegan:
+
+Endpoint: DELETE /products/unbranded_unvegan/
+Description: This endpoint deletes all products that are not associated with any brand or line and are not marked as vegan.
+Complexity: Involves conditional filtering and bulk deletion operations.
+
+- Update a product’s information:
+
+Endpoint: PUT /product/{product_id}/update/
+Description: This endpoint updates the information of an existing product. The request body should include the updated details of the product.
+Complexity: Involves updating fields of an existing product and handling partial updates if necessary.
+Serialization: Uses serialization to validate and update the product data. 

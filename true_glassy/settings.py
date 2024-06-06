@@ -37,6 +37,8 @@ if "CODESPACE_NAME" in os.environ:
 # Application definition
 
 INSTALLED_APPS = [
+    "rest_framework",
+    "drf_yasg",
     "products.apps.ProductsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -141,3 +143,11 @@ MEDIA_ROOT = BASE_DIR / "true_glassy" / "media"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# REST Framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ]
+}
