@@ -40,3 +40,24 @@ class ProductSerializer(serializers.ModelSerializer):
             "vegan",
             "ingredients",
         ]
+
+
+class ProductWithConcentrationSerializer(serializers.ModelSerializer):
+    concentration_value = serializers.FloatField()
+
+    class Meta:
+        model = Product
+        fields = [
+            "id",
+            "name",
+            "description",
+            "category",
+            "sub_category",
+            "brand",
+            "line",
+            "country",
+            "ph",
+            "cruelty_free",
+            "vegan",
+            "concentration_value",
+        ]

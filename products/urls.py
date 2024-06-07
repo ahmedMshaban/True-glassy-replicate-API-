@@ -4,7 +4,11 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from . import views
-from .api import CrueltyFreeVeganProductsView, CommonIngredientsView
+from .api import (
+    CrueltyFreeVeganProductsView,
+    CommonIngredientsView,
+    ProductsByIngredientView,
+)
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -38,5 +42,10 @@ urlpatterns = [
         "api/products/country/<str:country>/common_ingredients/",
         CommonIngredientsView.as_view(),
         name="common_ingredients",
+    ),
+    path(
+        "api/products/ingredient/<int:ingredient_id>/sorted_by_concentration/",
+        ProductsByIngredientView.as_view(),
+        name="products_by_ingredient",
     ),
 ]

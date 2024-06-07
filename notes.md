@@ -128,7 +128,6 @@ Endpoint: GET /products/ingredient/{ingredient_id}/sorted_by_concentration/
 Description: This endpoint returns all products that contain a specific ingredient, sorted by the concentration of that ingredient in descending order.
 Complexity: Involves joining the Product, ProductIngredient, and Ingredient tables, and sorting based on a field in the intermediary table.
 
-
 - Get detailed information of a product including its ingredients and their concentrations:
 
 Endpoint: GET /product/{product_id}/details/
