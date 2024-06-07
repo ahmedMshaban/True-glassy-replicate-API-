@@ -136,9 +136,3 @@ Endpoint: DELETE /products/unbranded_unvegan/
 Description: This endpoint deletes all products that are not associated with any brand or line and are not marked as vegan.
 Complexity: Involves conditional filtering and bulk deletion operations.
 
-- Update a product’s information:
-
-Endpoint: PUT /product/{product_id}/update/
-Description: This endpoint updates the information of an existing product. The request body should include the updated details of the product.
-Complexity: Involves updating fields of an existing product and handling partial updates if necessary.
-Serialization: Uses serialization to validate and update the product data. 

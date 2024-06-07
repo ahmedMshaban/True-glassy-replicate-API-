@@ -12,6 +12,7 @@ from .serializers import (
     ProductWithConcentrationSerializer,
     ProductDetailSerializer,
     ProductUpdateSerializer,
+    ProductCreateSerializer,
 )
 
 
@@ -186,4 +187,20 @@ class ProductUpdateView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProductCreateView(APIView):
+
+    @swagger_auto_schema(
+        operation_description="Add a new product along with its ingredients and their concentrations",
+        request_body=ProductCreateSerializer,
+        responses={201: ProductSerializer()},
+    )
+    def post(self, request):
+        serializer = ProductCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            product = serializer.save()
+            response_serializer = ProductSerializer(product)
+            return Response(response_serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

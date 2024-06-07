@@ -113,3 +113,38 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
             "cruelty_free",
             "vegan",
         ]
+
+
+class ProductIngredientCreateSerializer(serializers.ModelSerializer):
+    ingredient = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
+
+    class Meta:
+        model = ProductIngredient
+        fields = ["ingredient", "order", "concentration_value", "concentration_unit"]
+
+
+class ProductCreateSerializer(serializers.ModelSerializer):
+    ingredients = ProductIngredientCreateSerializer(many=True)
+
+    class Meta:
+        model = Product
+        fields = [
+            "name",
+            "description",
+            "category",
+            "sub_category",
+            "brand",
+            "line",
+            "country",
+            "ph",
+            "cruelty_free",
+            "vegan",
+            "ingredients",
+        ]
+
+    def create(self, validated_data):
+        ingredients_data = validated_data.pop("ingredients")
+        product = Product.objects.create(**validated_data)
+        for ingredient_data in ingredients_data:
+            ProductIngredient.objects.create(product=product, **ingredient_data)
+        return product
