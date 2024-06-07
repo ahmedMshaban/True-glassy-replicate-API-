@@ -10,6 +10,7 @@ from .serializers import (
     ProductSerializer,
     IngredientCountSerializer,
     ProductWithConcentrationSerializer,
+    ProductDetailSerializer,
 )
 
 
@@ -127,6 +128,37 @@ class ProductsByIngredientView(APIView):
 
             serializer = ProductWithConcentrationSerializer(products, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+class ProductDetailView(APIView):
+
+    @swagger_auto_schema(
+        operation_description="Retrieve detailed information about a product, including its ingredients and their respective concentrations",
+        manual_parameters=[
+            openapi.Parameter(
+                "product_id",
+                openapi.IN_PATH,
+                description="ID of the product",
+                type=openapi.TYPE_INTEGER,
+                example=3928,
+            ),
+        ],
+        responses={200: ProductDetailSerializer()},
+    )
+    def get(self, request, product_id):
+        try:
+            product = Product.objects.get(id=product_id)
+            serializer = ProductDetailSerializer(product)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Product.DoesNotExist:
+            return Response(
+                {"error": "Product not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         except Exception as e:
             return Response(
                 {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR

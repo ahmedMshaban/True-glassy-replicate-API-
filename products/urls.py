@@ -8,6 +8,7 @@ from .api import (
     CrueltyFreeVeganProductsView,
     CommonIngredientsView,
     ProductsByIngredientView,
+    ProductDetailView,
 )
 
 schema_view = get_schema_view(
@@ -47,5 +48,10 @@ urlpatterns = [
         "api/products/ingredient/<int:ingredient_id>/sorted_by_concentration/",
         ProductsByIngredientView.as_view(),
         name="products_by_ingredient",
+    ),
+    path(
+        "api/product/<int:product_id>/details/",
+        ProductDetailView.as_view(),
+        name="product_detail",
     ),
 ]

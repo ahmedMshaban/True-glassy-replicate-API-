@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Product, Brand, Line
+from .models import Product, Brand, Line, ProductIngredient, Ingredient
 
 
 class BrandSerializer(serializers.ModelSerializer):
@@ -60,4 +60,39 @@ class ProductWithConcentrationSerializer(serializers.ModelSerializer):
             "cruelty_free",
             "vegan",
             "concentration_value",
+        ]
+
+
+class IngredientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = ["id", "name"]
+
+
+class ProductIngredientSerializer(serializers.ModelSerializer):
+    ingredient = IngredientSerializer()
+
+    class Meta:
+        model = ProductIngredient
+        fields = ["ingredient", "order", "concentration_value", "concentration_unit"]
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+    ingredients = ProductIngredientSerializer(source="productingredient_set", many=True)
+
+    class Meta:
+        model = Product
+        fields = [
+            "id",
+            "name",
+            "description",
+            "category",
+            "sub_category",
+            "brand",
+            "line",
+            "country",
+            "ph",
+            "cruelty_free",
+            "vegan",
+            "ingredients",
         ]
