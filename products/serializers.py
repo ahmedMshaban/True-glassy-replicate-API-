@@ -96,3 +96,20 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             "vegan",
             "ingredients",
         ]
+
+
+class ProductUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = [
+            "name",
+            "description",
+            "category",
+            "sub_category",
+            "brand",
+            "line",
+            "country",
+            "ph",
+            "cruelty_free",
+            "vegan",
+        ]

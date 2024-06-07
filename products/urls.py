@@ -9,6 +9,7 @@ from .api import (
     CommonIngredientsView,
     ProductsByIngredientView,
     ProductDetailView,
+    ProductUpdateView,
 )
 
 schema_view = get_schema_view(
@@ -53,5 +54,10 @@ urlpatterns = [
         "api/product/<int:product_id>/details/",
         ProductDetailView.as_view(),
         name="product_detail",
+    ),
+    path(
+        "api/product/<int:product_id>/update/",
+        ProductUpdateView.as_view(),
+        name="product_update",
     ),
 ]

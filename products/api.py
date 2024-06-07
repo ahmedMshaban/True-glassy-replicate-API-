@@ -11,6 +11,7 @@ from .serializers import (
     IngredientCountSerializer,
     ProductWithConcentrationSerializer,
     ProductDetailSerializer,
+    ProductUpdateSerializer,
 )
 
 
@@ -163,3 +164,26 @@ class ProductDetailView(APIView):
             return Response(
                 {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+
+class ProductUpdateView(APIView):
+
+    @swagger_auto_schema(
+        operation_description="Update the information of an existing product",
+        request_body=ProductUpdateSerializer,
+        responses={200: ProductUpdateSerializer()},
+    )
+    def put(self, request, product_id):
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            return Response(
+                {"error": "Product not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = ProductUpdateSerializer(product, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

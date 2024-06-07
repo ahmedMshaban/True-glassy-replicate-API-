@@ -31,9 +31,9 @@
 ### Day 4: RESTful Endpoints - Part 1
 
 - **Task**: Implement the first set of RESTful endpoints.
-  - Create views and serializers for initial endpoints (e.g., GET requests).
-  - Implement URL routing for these endpoints.
-  - Test the endpoints using tools like Postman or curl.
+  - Create views and serializers for initial endpoints (e.g., GET requests). (DONE)
+  - Implement URL routing for these endpoints. (DONE)
+  - Test the endpoints using tools like Postman or curl. (DONE)
 - **PR**: Initial RESTful endpoints.
 
 ### Day 5: RESTful Endpoints - Part 2
@@ -122,17 +122,6 @@
 
 - <https://github.com/rdswyc>
 
-- Retrieve all products containing a specific ingredient and sort them by the concentration of that ingredient:
-
-Endpoint: GET /products/ingredient/{ingredient_id}/sorted_by_concentration/
-Description: This endpoint returns all products that contain a specific ingredient, sorted by the concentration of that ingredient in descending order.
-Complexity: Involves joining the Product, ProductIngredient, and Ingredient tables, and sorting based on a field in the intermediary table.
-
-- Get detailed information of a product including its ingredients and their concentrations:
-
-Endpoint: GET /product/{product_id}/details/
-Description: This endpoint retrieves detailed information about a product, including its ingredients and their respective concentrations.
-Complexity: Requires nested serialization to include related data from ProductIngredient and Ingredient tables.
 
 - Add a new product along with its ingredients and their concentrations:
 
