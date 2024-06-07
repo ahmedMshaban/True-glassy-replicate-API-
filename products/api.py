@@ -204,3 +204,27 @@ class ProductCreateView(APIView):
             response_serializer = ProductSerializer(product)
             return Response(response_serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteUnbrandedUnveganProductsView(APIView):
+
+    @swagger_auto_schema(
+        operation_description="Delete all products that do not belong to any brand or line and are not vegan",
+        responses={204: "No Content"},
+    )
+    def delete(self, request):
+        try:
+            products_to_delete = Product.objects.filter(
+                brand__isnull=True, line__isnull=True, vegan=False
+            )
+            count, _ = products_to_delete.delete()
+            return Response(
+                {
+                    "message": f"Deleted {count} products that were unbranded, unlined, and not vegan."
+                },
+                status=status.HTTP_204_NO_CONTENT,
+            )
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

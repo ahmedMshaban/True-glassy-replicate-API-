@@ -11,6 +11,7 @@ from .api import (
     ProductDetailView,
     ProductUpdateView,
     ProductCreateView,
+    DeleteUnbrandedUnveganProductsView,
 )
 
 schema_view = get_schema_view(
@@ -62,4 +63,9 @@ urlpatterns = [
         name="product_update",
     ),
     path("api/products/add/", ProductCreateView.as_view(), name="product_add"),
+    path(
+        "api/products/unbranded_unvegan/",
+        DeleteUnbrandedUnveganProductsView.as_view(),
+        name="delete_unbranded_unvegan_products",
+    ),
 ]

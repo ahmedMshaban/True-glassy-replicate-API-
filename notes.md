@@ -123,13 +123,6 @@
 - <https://github.com/rdswyc>
 
 
-- Add a new product along with its ingredients and their concentrations:
-
-Endpoint: POST /products/add/
-Description: This endpoint allows adding a new product along with its ingredients and their concentrations. The request body should include product details and a list of ingredients with their concentrations.
-Complexity: Involves handling nested data in the request and performing multiple inserts into different tables.
-Serialization: Uses serialization to validate and save the nested data.
-
 - Delete all products that do not belong to any brand or line and are not vegan:
 
 Endpoint: DELETE /products/unbranded_unvegan/
