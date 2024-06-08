@@ -99,3 +99,46 @@ class CommonIngredientsViewTest(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 0)
+
+
+class ProductsByIngredientViewTest(APITestCase):
+
+    def setUp(self):
+        self.ingredient = IngredientFactory.create(name="Test Ingredient")
+        self.product1 = ProductFactory.create(name="Product 1")
+        self.product2 = ProductFactory.create(name="Product 2")
+        self.product3 = ProductFactory.create(name="Product 3")
+
+        ProductIngredientFactory.create(
+            product=self.product1, ingredient=self.ingredient, concentration_value=5.0
+        )
+        ProductIngredientFactory.create(
+            product=self.product2, ingredient=self.ingredient, concentration_value=10.0
+        )
+        ProductIngredientFactory.create(
+            product=self.product3, ingredient=self.ingredient, concentration_value=1.0
+        )
+
+        self.url = reverse(
+            "products_by_ingredient", kwargs={"ingredient_id": self.ingredient.id}
+        )
+
+    def test_get_products_by_ingredient_success(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 3)
+        self.assertEqual(response.data[0]["name"], "Product 2")
+        self.assertEqual(response.data[0]["concentration_value"], 10.0)
+        self.assertEqual(response.data[1]["name"], "Product 1")
+        self.assertEqual(response.data[1]["concentration_value"], 5.0)
+        self.assertEqual(response.data[2]["name"], "Product 3")
+        self.assertEqual(response.data[2]["concentration_value"], 1.0)
+
+    def test_get_products_by_ingredient_no_match(self):
+        new_ingredient = IngredientFactory.create(name="New Ingredient")
+        url = reverse(
+            "products_by_ingredient", kwargs={"ingredient_id": new_ingredient.id}
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 0)
