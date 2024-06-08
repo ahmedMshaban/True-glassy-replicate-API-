@@ -1,6 +1,12 @@
 from django.urls import reverse
 from rest_framework.test import APITestCase
-from .factories import BrandFactory, LineFactory, ProductFactory
+from .factories import (
+    BrandFactory,
+    LineFactory,
+    ProductFactory,
+    IngredientFactory,
+    ProductIngredientFactory,
+)
 
 
 class CrueltyFreeVeganProductsViewTest(APITestCase):
@@ -39,3 +45,57 @@ class CrueltyFreeVeganProductsViewTest(APITestCase):
         )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
+
+
+class CommonIngredientsViewTest(APITestCase):
+
+    def setUp(self):
+        self.country_code = "KR"
+        self.product1 = ProductFactory.create(country=self.country_code)
+        self.product2 = ProductFactory.create(country=self.country_code)
+        self.product3 = ProductFactory.create(country="US")
+
+        self.ingredient1 = IngredientFactory.create(name="Ingredient1")
+        self.ingredient2 = IngredientFactory.create(name="Ingredient2")
+
+        ProductIngredientFactory.create(
+            product=self.product1, ingredient=self.ingredient1
+        )
+        ProductIngredientFactory.create(
+            product=self.product1, ingredient=self.ingredient2
+        )
+        ProductIngredientFactory.create(
+            product=self.product2, ingredient=self.ingredient1
+        )
+        ProductIngredientFactory.create(
+            product=self.product2, ingredient=self.ingredient2
+        )
+        ProductIngredientFactory.create(
+            product=self.product3, ingredient=self.ingredient1
+        )
+
+        self.url = reverse("common_ingredients", kwargs={"country": self.country_code})
+
+    def test_get_common_ingredients_success(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 2)
+
+        ingredients = {
+            item["ingredient__name"]: item["count"] for item in response.data
+        }
+
+        self.assertEqual(ingredients["Ingredient1"], 2)
+        self.assertEqual(ingredients["Ingredient2"], 2)
+
+    def test_get_common_ingredients_no_match(self):
+        url = reverse("common_ingredients", kwargs={"country": "CN"})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 0)
+
+    def test_get_common_ingredients_error(self):
+        url = reverse("common_ingredients", kwargs={"country": "invalid"})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 0)
