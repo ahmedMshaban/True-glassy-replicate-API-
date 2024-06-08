@@ -176,3 +176,56 @@ class ProductDetailViewTest(APITestCase):
         url = reverse("product_detail", kwargs={"product_id": 9999})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
+
+
+class ProductUpdateViewTest(APITestCase):
+
+    def setUp(self):
+        self.product = ProductFactory.create()
+        self.url = reverse("product_update", kwargs={"product_id": self.product.id})
+        self.valid_payload = {
+            "name": "Updated Product Name",
+            "description": "Updated description",
+            "category": "Updated category",
+            "sub_category": "Updated sub_category",
+            "brand": BrandFactory.create().id,
+            "line": LineFactory.create().id,
+            "country": "Updated country",
+            "ph": "7",
+            "cruelty_free": True,
+            "vegan": True,
+        }
+        self.invalid_payload = {
+            "name": "",
+            "description": "",
+            "category": "",
+            "sub_category": "",
+            "brand": "",
+            "line": "",
+            "country": "",
+            "ph": "",
+            "cruelty_free": "",
+            "vegan": "",
+        }
+
+    def test_update_product_success(self):
+        response = self.client.put(self.url, self.valid_payload, format="json")
+        self.assertEqual(response.status_code, 200)
+        self.product.refresh_from_db()
+        self.assertEqual(self.product.name, "Updated Product Name")
+        self.assertEqual(self.product.description, "Updated description")
+        self.assertEqual(self.product.category, "Updated category")
+        self.assertEqual(self.product.sub_category, "Updated sub_category")
+        self.assertEqual(self.product.country, "Updated country")
+        self.assertEqual(self.product.ph, "7")
+        self.assertEqual(self.product.cruelty_free, True)
+        self.assertEqual(self.product.vegan, True)
+
+    def test_update_product_not_found(self):
+        url = reverse("product_update", kwargs={"product_id": 9999})
+        response = self.client.put(url, self.valid_payload, format="json")
+        self.assertEqual(response.status_code, 404)
+
+    def test_update_product_invalid_data(self):
+        response = self.client.put(self.url, self.invalid_payload, format="json")
+        self.assertEqual(response.status_code, 400)
