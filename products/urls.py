@@ -62,7 +62,7 @@ urlpatterns = [
         ProductUpdateView.as_view(),
         name="product_update",
     ),
-    path("api/products/add/", ProductCreateView.as_view(), name="product_add"),
+    path("api/products/add/", ProductCreateView.as_view(), name="product_create"),
     path(
         "api/products/unbranded_unvegan/",
         DeleteUnbrandedUnveganProductsView.as_view(),

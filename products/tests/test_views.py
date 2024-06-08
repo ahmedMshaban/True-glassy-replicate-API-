@@ -7,6 +7,7 @@ from .factories import (
     IngredientFactory,
     ProductIngredientFactory,
 )
+from products.models import Line, Ingredient, Brand
 
 
 class CrueltyFreeVeganProductsViewTest(APITestCase):
@@ -228,4 +229,74 @@ class ProductUpdateViewTest(APITestCase):
 
     def test_update_product_invalid_data(self):
         response = self.client.put(self.url, self.invalid_payload, format="json")
+        self.assertEqual(response.status_code, 400)
+
+
+class ProductCreateViewTest(APITestCase):
+
+    def setUp(self):
+        self.url = reverse("product_create")
+
+        self.brand = BrandFactory.create()
+        self.line = LineFactory.create()
+        # Explicitly save the brand and line objects to the database
+        self.brand.save()
+        self.line.save()
+
+        self.ingredient1 = IngredientFactory.create()
+        self.ingredient2 = IngredientFactory.create()
+        # Explicitly save the ingredient objects to the database
+        self.ingredient1.save()
+        self.ingredient2.save()
+
+        self.valid_payload = {
+            "name": "New Product",
+            "description": "This is a new product",
+            "category": "Category1",
+            "sub_category": "SubCategory1",
+            "brand": self.brand.id,
+            "line": self.line.id,
+            "country": "Country1",
+            "ph": "7",
+            "cruelty_free": True,
+            "vegan": True,
+            "ingredients": [
+                {
+                    "ingredient": self.ingredient1.id,
+                    "order": 1,
+                    "concentration_value": 5.0,
+                    "concentration_unit": "mg",
+                },
+                {
+                    "ingredient": self.ingredient2.id,
+                    "order": 2,
+                    "concentration_value": 2.0,
+                    "concentration_unit": "mg",
+                },
+            ],
+        }
+        self.invalid_payload = {
+            "name": "",
+            "description": "",
+            "category": "",
+            "sub_category": "",
+            "brand": "",
+            "line": "",
+            "country": "",
+            "ph": "",
+            "cruelty_free": "",
+            "vegan": "",
+            "ingredients": [],
+        }
+
+    def test_create_product_success(self):
+        response = self.client.post(self.url, self.valid_payload, format="json")
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data["name"], "New Product")
+        self.assertEqual(len(response.data["ingredients"]), 2)
+        self.assertEqual(response.data["ingredients"][0], self.ingredient1.id)
+        self.assertEqual(response.data["ingredients"][1], self.ingredient2.id)
+
+    def test_create_product_invalid_data(self):
+        response = self.client.post(self.url, self.invalid_payload, format="json")
         self.assertEqual(response.status_code, 400)
