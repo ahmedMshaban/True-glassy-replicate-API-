@@ -142,3 +142,37 @@ class ProductsByIngredientViewTest(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 0)
+
+
+class ProductDetailViewTest(APITestCase):
+
+    def setUp(self):
+        self.product = ProductFactory.create()
+        self.ingredient1 = IngredientFactory.create(name="Ingredient1")
+        self.ingredient2 = IngredientFactory.create(name="Ingredient2")
+
+        ProductIngredientFactory.create(
+            product=self.product, ingredient=self.ingredient1, concentration_value=5.0
+        )
+        ProductIngredientFactory.create(
+            product=self.product, ingredient=self.ingredient2, concentration_value=10.0
+        )
+
+        self.url = reverse("product_detail", kwargs={"product_id": self.product.id})
+
+    def test_get_product_detail_success(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["id"], self.product.id)
+        self.assertEqual(len(response.data["ingredients"]), 2)
+        self.assertEqual(
+            response.data["ingredients"][0]["ingredient"]["name"], "Ingredient1"
+        )
+        self.assertEqual(
+            response.data["ingredients"][1]["ingredient"]["name"], "Ingredient2"
+        )
+
+    def test_get_product_detail_not_found(self):
+        url = reverse("product_detail", kwargs={"product_id": 9999})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
