@@ -7,7 +7,7 @@ from .factories import (
     IngredientFactory,
     ProductIngredientFactory,
 )
-from products.models import Line, Ingredient, Brand
+from products.models import Product
 
 
 class CrueltyFreeVeganProductsViewTest(APITestCase):
@@ -300,3 +300,34 @@ class ProductCreateViewTest(APITestCase):
     def test_create_product_invalid_data(self):
         response = self.client.post(self.url, self.invalid_payload, format="json")
         self.assertEqual(response.status_code, 400)
+
+
+class DeleteUnbrandedUnveganProductsViewTest(APITestCase):
+
+    def setUp(self):
+        self.url = reverse("delete_unbranded_unvegan_products")
+
+        self.product1 = ProductFactory.create(brand=None, line=None, vegan=False)
+        self.product2 = ProductFactory.create(brand=None, line=None, vegan=False)
+        self.product3 = ProductFactory.create(brand=None, line=None, vegan=True)
+        self.product4 = ProductFactory.create(
+            brand=BrandFactory.create(), line=None, vegan=False
+        )
+        self.product5 = ProductFactory.create(
+            brand=None, line=LineFactory.create(), vegan=False
+        )
+
+    def test_delete_unbranded_unvegan_products_success(self):
+        response = self.client.delete(self.url)
+        if response.status_code == 500:
+            print("Error:", response.data)
+        self.assertEqual(response.status_code, 204)
+
+        remaining_products = Product.objects.all()
+        remaining_products_ids = [product.id for product in remaining_products]
+
+        self.assertNotIn(self.product1.id, remaining_products_ids)
+        self.assertNotIn(self.product2.id, remaining_products_ids)
+        self.assertIn(self.product3.id, remaining_products_ids)
+        self.assertIn(self.product4.id, remaining_products_ids)
+        self.assertIn(self.product5.id, remaining_products_ids)
