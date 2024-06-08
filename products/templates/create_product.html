@@ -1,0 +1,18 @@
+<h2>Add New Product</h2>
+<form action="{% url 'create_product' %}" method="post">
+  {% csrf_token %}
+  <fieldset>
+    <legend>Product Information</legend>
+    {{ form.non_field_errors }} {{ form.as_p }}
+  </fieldset>
+  <fieldset>
+    <legend>Ingredients</legend>
+    {{ formset.management_form }} {% for form in formset %}
+    <div class="ingredient-form">
+      {{ form.non_field_errors }} {{ form.as_p }}
+      <br />
+    </div>
+    {% endfor %}
+  </fieldset>
+  <input type="submit" value="Submit" />
+</form>

@@ -39,9 +39,9 @@
 ### Day 5: RESTful Endpoints - Part 2
 
 - **Task**: Implement the remaining RESTful endpoints.
-  - Create views and serializers for the remaining endpoints (e.g., POST, DELETE).
-  - Implement URL routing for these endpoints.
-  - Test the endpoints using tools like Postman or curl.
+  - Create views and serializers for the remaining endpoints (e.g., POST, DELETE). (DONE)
+  - Implement URL routing for these endpoints. (DONE)
+  - Test the endpoints using tools like Postman or curl. (DONE)
 - **PR**: Complete RESTful endpoints.
 
 ### Day 6: Unit Testing
@@ -121,11 +121,3 @@
 ## References
 
 - <https://github.com/rdswyc>
-
-
-- Delete all products that do not belong to any brand or line and are not vegan:
-
-Endpoint: DELETE /products/unbranded_unvegan/
-Description: This endpoint deletes all products that are not associated with any brand or line and are not marked as vegan.
-Complexity: Involves conditional filtering and bulk deletion operations.
-

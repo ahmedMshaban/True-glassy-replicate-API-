@@ -68,4 +68,5 @@ urlpatterns = [
         DeleteUnbrandedUnveganProductsView.as_view(),
         name="delete_unbranded_unvegan_products",
     ),
+    path("create_product/", views.create_product, name="create_product"),
 ]
