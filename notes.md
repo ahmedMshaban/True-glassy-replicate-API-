@@ -47,17 +47,16 @@
 ### Day 6: Unit Testing
 
 - **Task**: Write unit tests for all implemented endpoints.
-  - Use Django's testing framework to create test cases for each endpoint.
-  - Ensure tests cover various scenarios and edge cases.
+  - Use Django's testing framework to create test cases for each endpoint. (DONE)
+  - Ensure tests cover various scenarios and edge cases. (DONE)
 - **PR**: Unit tests for RESTful endpoints.
 
 ### Day 7: Code Review and Refactoring
 
-- **Task**: Review and refactor code.
-  - I need to reduce the database entries to be below 10,000 entries
+- **Task**: Review and refactor code
   - Perform a thorough code review to ensure code quality.
   - Refactor code for better readability and maintainability.
-  - Ensure adherence to PEP8 standards.
+  - Ensure adherence to PEP8 standards. (DONE)
 - **PR**: Code review and refactoring.
 
 ## Week 2
