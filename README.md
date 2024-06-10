@@ -1,35 +1,64 @@
-## installing dependancies
+# Skincare Application
 
-```python
+Welcome to the Skincare Application! This project is designed to provide comprehensive skincare product information and management capabilities. Below, you'll find detailed instructions on how to set up, run, and use the application.
+
+## Project Overview
+
+This application leverages a unique dataset sourced from a related skincare application. It includes models for brands, lines, products, and ingredients, and offers several endpoints for retrieving and managing product data. Key features include:
+
+- Filtering products based on criteria such as cruelty-free and vegan status.
+- Analyzing common ingredients in products from different countries.
+- Viewing detailed information about individual products and their ingredients.
+- Adding, updating, and deleting products based on specific criteria.
+
+## Live Application
+
+You can access the live application [here](https://true-glassy-app-msz3f.ondigitalocean.app/).
+
+## Development Environment
+
+- **Operating System**: Linux
+- **Python Version**: 3.10.13
+- **Packages and Versions**:
+  - `asgiref==3.8.1`
+  - `Django==3.0.3`
+  - `django-browser-reload`
+  - `python-decouple==3.8`
+  - `sqlparse==0.5.0`
+  - `djangorestframework==3.11.1`
+  - `drf-yasg==1.21.7`
+  - `factory_boy==3.0.1`
+  - `gunicorn==22.0.0`
+
+## Installation Instructions
+
+### Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-## To collect static files
+### Collect Static Files
 
-```python
+```bash
 python manage.py collectstatic
 ```
 
-## To run this application
+## Usage Instructions
 
-```python
+### Running the Application
+
+```bash
 python manage.py runserver
 ```
 
-## To interact with sqlite3 via command line
+### Logging into Django Admin
 
-``` sql
-sqlite3 db.sqlite3
-```
+- **Username:** ahmedshaban
+- **Password:** 248655
 
-## To import the data
+### Importing Data
 
-```python
+```bash
 python manage.py populate_products data/SUNSCREEN.csv data/TREATMENT.csv
 ```
-
-## Superuser
-
-username: ahmedshaban
-email: <ahmed.ms.elias@gmail.com>
-password: 248655
