@@ -53,15 +53,15 @@
 
 ### Day 7: Code Review and Refactoring
 
-- **Task**: Review and refactor code
-  - Perform a thorough code review to ensure code quality.
-  - Refactor code for better readability and maintainability.
+- **Task**: Review and refactor code (DONE)
+  - Perform a thorough code review to ensure code quality. (DONE)
+  - Refactor code for better readability and maintainability. (DONE)
   - Ensure adherence to PEP8 standards. (DONE)
 - **PR**: Code review and refactoring.
 
 ## Week 2
 
-### Day 8: Report Writing - Part 1
+### Day 8: Report Writing - Part 1 (DONE)
 
 - **Task**: Start writing the project report.
   - Document the dataset and its significance.
@@ -69,7 +69,7 @@
   - Explain how the application requirements have been met.
 - **PR**: Initial report draft.
 
-### Day 9: Report Writing - Part 2
+### Day 9: Report Writing - Part 2 (DONE)
 
 - **Task**: Continue writing the project report.
   - Discuss the application of Django and Django REST framework.

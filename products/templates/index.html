@@ -3,35 +3,189 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Website</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>API Documentation</title>
   </head>
   <body>
-    <header>
-      <h1>{{message}}</h1>
-    </header>
+    <h1>API Documentation</h1>
 
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
+    <h2>Endpoints</h2>
+    <ul>
+      <li>
+        <strong>Endpoint 1:</strong> GET
+        /api/products/brand/&lt;int:brand_id&gt;/line/&lt;int:line_id&gt;/cruelty_free_vegan/
+        <ul>
+          <li>
+            <strong>Description:</strong> Retrieves all products that belong to
+            a specific brand and line, and are also cruelty-free and vegan.
+          </li>
+          <li>
+            <strong>Complexity:</strong> Involves filtering by multiple foreign
+            keys and boolean fields.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Endpoint 2:</strong> GET
+        /api/products/country/&lt;str:country&gt;/common_ingredients/
+        <ul>
+          <li>
+            <strong>Description:</strong> Lists the most common ingredients used
+            in products from a specified country.
+          </li>
+          <li>
+            <strong>Complexity:</strong> Requires aggregating and counting
+            ingredient occurrences, and filtering by a field in the Product
+            table.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Endpoint 3:</strong> GET
+        /api/products/ingredient/&lt;int:ingredient_id&gt;/sorted_by_concentration/
+        <ul>
+          <li>
+            <strong>Description:</strong> Returns all products that contain a
+            specific ingredient, sorted by the concentration of that ingredient
+            in descending order.
+          </li>
+          <li>
+            <strong>Complexity:</strong> Involves joining the Product,
+            ProductIngredient, and Ingredient tables, and sorting based on a
+            field in the intermediary table.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Endpoint 4:</strong> GET
+        /api/product/&lt;int:product_id&gt;/details/
+        <ul>
+          <li>
+            <strong>Description:</strong> Retrieves detailed information about a
+            product, including its ingredients and their respective
+            concentrations.
+          </li>
+          <li>
+            <strong>Complexity:</strong> Requires nested serialization to
+            include related data from ProductIngredient and Ingredient tables.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Endpoint 5:</strong> PUT
+        /api/product/&lt;int:product_id&gt;/update/
+        <ul>
+          <li>
+            <strong>Description:</strong> Updates the information of an existing
+            product. The request body should include the updated details of the
+            product.
+          </li>
+          <li>
+            <strong>Complexity:</strong> Involves updating fields of an existing
+            product and handling partial updates if necessary. Uses
+            serialization to validate and update the product data.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Endpoint 6:</strong> POST /api/products/add/
+        <ul>
+          <li>
+            <strong>Description:</strong> Allows adding a new product along with
+            its ingredients and their concentrations. The request body should
+            include product details and a list of ingredients with their
+            concentrations.
+          </li>
+          <li>
+            <strong>Complexity:</strong> Involves handling nested data in the
+            request and performing multiple inserts into different tables. Uses
+            serialization to validate and save the nested data.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Endpoint 7:</strong> DELETE /api/products/unbranded_unvegan/
+        <ul>
+          <li>
+            <strong>Description:</strong> Deletes all products that are not
+            associated with any brand or line and are not marked as vegan.
+          </li>
+          <li>
+            <strong>Complexity:</strong> Involves conditional filtering and bulk
+            deletion operations.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>Swagger UI:</strong> GET /api/swagger/
+        <ul>
+          <li>
+            <strong>Description:</strong> Provides an interactive API
+            documentation and testing interface.
+          </li>
+        </ul>
+      </li>
+    </ul>
 
-    <main>
-      <h2>About Me</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor,
-        nunc id aliquam tincidunt, nisl nunc tincidunt urna, id aliquam nisl
-        nunc id urna.
-      </p>
-    </main>
+    <h2>Development Environment</h2>
+    <ul>
+      <li><strong>Operating System:</strong> Linux</li>
+      <li><strong>Python Version:</strong> 3.10.13</li>
+      <li>
+        <strong>Packages and Versions:</strong>
+        <ul>
+          <li>asgiref==3.8.1</li>
+          <li>Django==3.0.3</li>
+          <li>django-browser-reload</li>
+          <li>python-decouple==3.8</li>
+          <li>sqlparse==0.5.0</li>
+          <li>djangorestframework==3.11.1</li>
+          <li>drf-yasg==1.21.7</li>
+          <li>factory_boy==3.0.1</li>
+        </ul>
+      </li>
+    </ul>
 
-    <footer>
-      <p>&copy; 2022 My Website. All rights reserved.</p>
-    </footer>
+    <h2>Installation Instructions</h2>
+    <ul>
+      <li>
+        <strong>Install Dependencies:</strong>
+        <ul>
+          <li>
+            <code>pip install -r requirements.txt</code>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>To Collect Static files:</strong>
+        <ul>
+          <li>
+            <code>python manage.py collectstatic</code>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <strong>To Run This application:</strong>
+        <ul>
+          <li>
+            <code>python manage.py runserver</code>
+          </li>
+        </ul>
+      </li>
+    </ul>
 
-    <script src="script.js"></script>
+    <h2>Usage Instructions</h2>
+    <ul>
+      <li>
+        <strong>Running the Application:</strong>
+        <code>python manage.py runserver</code>
+      </li>
+      <li>
+        <strong>Logging into Django Admin:</strong>
+        <ul>
+          <li>Username: ahmedshaban</li>
+          <li>Password: 248655</li>
+        </ul>
+      </li>
+    </ul>
   </body>
 </html>
