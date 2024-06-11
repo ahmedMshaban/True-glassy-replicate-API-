@@ -47,8 +47,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_browser_reload",
 ]
+
+if os.getenv("ENV") == "development":
+    INSTALLED_APPS.append("django_browser_reload")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -58,8 +60,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
+
+if os.getenv("ENV") == "development":
+    MIDDLEWARE.append("django_browser_reload.middleware.BrowserReloadMiddleware")
 
 X_FRAME_OPTIONS = "ALLOW-FROM preview.app.github.dev"
 
